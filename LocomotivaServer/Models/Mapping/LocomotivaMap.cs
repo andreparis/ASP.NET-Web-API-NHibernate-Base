@@ -9,15 +9,12 @@ namespace LocomotivaServer.Models.Mapping
     /// <summary>
     /// Classe para mapear no NHibernate Locomotiva classe e Locomotiva tabela.
     /// </summary>
-    public class LocomotivaMap : ClassMap<LocomotivaModel>
+    public class LocomotivaMap : ClassMapBase<LocomotivaModel>
     {
         public LocomotivaMap()
         {
-            Table("Locomotiva");
-            //LOCOMOTIVA_SEQUENCE is the oracle sequence against the person table
-            Id(x => x.Id, "Id").GeneratedBy.Sequence("LOCOMOTIVA_SEQUENCE");
+            Table("LOCOMOTIVA");
             Map(x => x.Name);
-            Map(x => x.IdsTags);
         }
     }
 }

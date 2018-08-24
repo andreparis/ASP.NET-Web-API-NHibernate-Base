@@ -10,7 +10,7 @@ namespace LocomotivaServer.Models
     {
         protected ClassMapBase()
         {
-            Id(x => x.Id).Not.Nullable().GeneratedBy.GuidComb();
+            Id(x => x.Id).Not.Nullable();
             LazyLoad();
         }
     }
