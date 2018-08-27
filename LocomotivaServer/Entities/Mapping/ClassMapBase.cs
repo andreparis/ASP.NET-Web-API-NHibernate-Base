@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LocomotivaServer.Models
+namespace LocomotivaServer.Entities
 {
     public abstract class ClassMapBase<T> : ClassMap<T> where T : EntityBase
     {

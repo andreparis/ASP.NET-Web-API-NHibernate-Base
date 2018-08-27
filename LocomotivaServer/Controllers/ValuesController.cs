@@ -1,4 +1,4 @@
-﻿using LocomotivaServer.Models;
+﻿using LocomotivaServer.Entities;
 using LocomotivaServer.SessionManager;
 using System;
 using System.Collections.Generic;
@@ -12,11 +12,11 @@ namespace LocomotivaServer.Controllers
     public class ValuesController : ApiController
     {
         // GET api/values
-        public IEnumerable<LocomotivaModel> Get()
+        public IEnumerable<Locomotiva> Get()
         {
 
-            IRepository<LocomotivaModel> repo = new Repository<LocomotivaModel>();
-            var persons = repo.GetAll<LocomotivaModel>();
+            IRepository<Locomotiva> repo = new Repository<Locomotiva>();
+            var persons = repo.GetAll<Locomotiva>();
             return persons;
         }
 

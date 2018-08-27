@@ -208,9 +208,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\EntityBase.cs" />
-    <Compile Include="Models\LocomotivaModel.cs" />
-    <Compile Include="Models\Mapping\LocomotivaMap.cs" />
+    <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Entities\Gps.cs" />
+    <Compile Include="Entities\Mapping\CustomConventionAutoMap.cs" />
+    <Compile Include="Entities\Mapping\StoreAutomappingConfiguration .cs" />
+    <Compile Include="Entities\Locomotiva.cs" />
+    <Compile Include="Entities\LocomotivaTag.cs" />
+    <Compile Include="Entities\Mapping\LocomotivaMap.cs" />
+    <Compile Include="Entities\Mapping\LocomotivaTagMap.cs" />
+    <Compile Include="Entities\Mapping\SystemMap.cs" />
+    <Compile Include="Entities\Mapping\TagMap.cs" />
+    <Compile Include="Entities\System.cs" />
+    <Compile Include="Entities\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -224,7 +233,7 @@
     </Compile>
     <Compile Include="SessionManager\Interface\IRepository.cs" />
     <Compile Include="SessionManager\SessionFactoryHelper.cs" />
-    <Compile Include="Models\Mapping\ClassMapBase.cs" />
+    <Compile Include="Entities\Mapping\ClassMapBase.cs" />
     <Compile Include="SessionManager\Source\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -236,9 +245,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="hibernate.cfg.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
