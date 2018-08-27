@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LocomotivaServer.Entities
+namespace LocomotivaServer.Models
 {
     /// <summary>
     /// Classe base para os modelos de classes das tabelas do banco.

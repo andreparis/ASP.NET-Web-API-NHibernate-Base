@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LocomotivaServer.Entities
+namespace LocomotivaServer.Models
 {
-    public class System : EntityBase
+    public class SystemModel : EntityBase
     {
         public virtual string Name { get; set; }
         public virtual string HubConnectionString { get; set; }

@@ -1,8 +1,8 @@
 ﻿using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using LocomotivaServer.Entities;
-using LocomotivaServer.Entities.Mapping;
+using LocomotivaServer.Models;
+using LocomotivaServer.Models.Mapping;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using System;
@@ -17,40 +17,16 @@ namespace LocomotivaServer.SessionManager
         public static ISessionFactory CreateSessionFactory()
         {
             string cstring = Properties.Settings.Default.OracleConnectionString;
-            var sac = new StoreAutomappingConfiguration();
             var c = Fluently.Configure();
             try
             {
                 c.Database(OracleDataClientConfiguration.Oracle10.
                     ConnectionString(cstring));
-                c.Mappings(m => m.AutoMappings.Add(AutoMap.AssemblyOf<Locomotiva>()
-                    .Where(x => x.GetType() == typeof(Locomotiva))
-                    .IgnoreBase<EntityBase>()
-                    .Conventions.Setup(s =>
-                    {
-                        s.Add<CustomPrimaryKeyConvention>();
-                        s.Add<DefaultStringLengthConvention>();
-                    }))
-                    .ExportTo(@"C:\Users\VM-LOCOMOTIVAS\Desktop\Projetos\Locomotiva-Web"));
-                //c.Mappings(m => m.AutoMappings.Add(AutoMap.AssemblyOf<Tag>(sac)
-                //    .Conventions.Setup(s =>
-                //    {
-                //        s.Add<CustomPrimaryKeyConvention>();
-                //        s.Add<DefaultStringLengthConvention>();
-                //    })));
-                //c.Mappings(m => m.AutoMappings.Add(AutoMap.AssemblyOf<LocomotivaTag>(sac)
-                //    .Conventions.Setup(s =>
-                //    {
-                //        s.Add<CustomPrimaryKeyConvention>();
-                //        s.Add<CustomForeignKeyConvention>();
-                //        s.Add<DefaultStringLengthConvention>();
-                //    })));
-                //c.Mappings(m => m.AutoMappings.Add(AutoMap.AssemblyOf<Entities.System>(sac)
-                //    .Conventions.Setup(s =>
-                //    {
-                //        s.Add<CustomPrimaryKeyConvention>();
-                //        s.Add<DefaultStringLengthConvention>();
-                //    })));
+                c.Mappings(m => m.FluentMappings.AddFromAssemblyOf<LocomotivaModel>());
+                c.Mappings(m => m.FluentMappings.AddFromAssemblyOf<SystemModel>());
+                c.Mappings(m => m.FluentMappings.AddFromAssemblyOf<LocomotivaTagModel>());
+                c.Mappings(m => m.FluentMappings.AddFromAssemblyOf<TagModel>());
+                c.Mappings(m => m.FluentMappings.AddFromAssemblyOf<UserModel>());
                 c.ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(true, true));
                 return c.BuildSessionFactory();
             }

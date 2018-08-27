@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LocomotivaServer.Entities
+namespace LocomotivaServer.Models
 {
     /// <summary>
     /// Classe modelo para tabela que relaciona locomotiva e tag
     /// </summary>
-    public class LocomotivaTag : EntityBase
+    public class LocomotivaTagModel : EntityBase
     {
-        public virtual Locomotiva Locomotiva { get; set; }
-        public virtual Tag Tag { get; set; }
+        public virtual LocomotivaModel Locomotiva { get; set; }
+        public virtual TagModel Tag { get; set; }
 
         /// <summary>
         /// Tempo que a tag realiza coleta.

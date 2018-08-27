@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LocomotivaServer.Entities
+namespace LocomotivaServer.Models
 {
     /// <summary>
     /// Classe modelo das locomotivas.
     /// </summary>
-    public class Locomotiva : EntityBase
+    public class LocomotivaModel : EntityBase
     {
         /// <summary>
         /// Nome atribuído a locomotiva
@@ -31,7 +31,14 @@ namespace LocomotivaServer.Entities
         /// <summary>
         /// Dados referentes ao GPS
         /// </summary>
-        public virtual Gps GPS { get; set; }
+        #region GPS
+        public string Type { get; set; }
+        public string Addr { get; set; }
+        public int Port { get; set; }
+        public int PoolingTime { get; set; }
+        public string Monitor { get; set; }
+        public int OpcTagMonitor { get; set; }
+        #endregion
         /// <summary>
         /// Diretoria de logs na locomotiva.
         /// </summary>
