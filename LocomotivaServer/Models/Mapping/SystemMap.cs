@@ -9,7 +9,7 @@ namespace LocomotivaServer.Models.Mapping
     {
         public SystemMap()
         {
-            Table("SYSTEM_VARAIBLES");
+            Table("SYSTEM_VARIABLES");
             Map(x=> x.Name).Nullable().Length(250);
             Map(x => x.PimsServers).Nullable().Length(250).Column("Pims_Servers");
             Map(x => x.Families).Nullable().Length(250);
