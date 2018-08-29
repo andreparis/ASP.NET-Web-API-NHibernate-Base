@@ -9,7 +9,7 @@ namespace LocomotivaServer.Models.Mapping
     {
         public UserMap()
         {
-            Table("USER");
+            Table("USERS");
             Map(x => x.Name).Length(250);
             Map(x => x.Password).Length(250);
             Map(x => x.Tellphone).Length(250);

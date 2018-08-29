@@ -15,9 +15,11 @@ namespace LocomotivaServer.Models.Mapping
             Table("LOCOMOTIVA_TAG");
             References(x => x.Locomotiva);
             References(x => x.Tag);
-            Map(x => x.PimsServer).Length(250).Column("Pims_Server");
+            References(x => x.PimsServer).Column("Pims_Server_Id");
             Map(x => x.PoolingTime).Column("Pooling_Time");
-            Map(x => x.Family).Nullable().Length(250); ;
+            Map(x => x.Family).Nullable().Length(250);
+            Map(x => x.TagGroup).Nullable().Length(250).Column("Tag_Group");
+            Map(x => x.IP21NAME).Nullable().Length(250);
         }
     }
 }

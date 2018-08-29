@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace LocomotivaServer.Models
 {
@@ -10,6 +7,7 @@ namespace LocomotivaServer.Models
     /// </summary>
     public class LocomotivaModel : EntityBase
     {
+        #region Atributos
         /// <summary>
         /// Nome atribuído a locomotiva
         /// </summary>
@@ -17,7 +15,7 @@ namespace LocomotivaServer.Models
         /// <summary>
         /// Data do ultimo deploy
         /// </summary>
-        public virtual DateTime DeployTimeStamp { get; set; }
+        public virtual string DeployTimeStamp { get; set; }
         /// <summary>
         /// Versão do software embarcado
         /// </summary>
@@ -32,12 +30,12 @@ namespace LocomotivaServer.Models
         /// Dados referentes ao GPS
         /// </summary>
         #region GPS
-        public string Type { get; set; }
-        public string Addr { get; set; }
-        public int Port { get; set; }
-        public int PoolingTime { get; set; }
-        public string Monitor { get; set; }
-        public int OpcTagMonitor { get; set; }
+        public virtual string Type { get; set; }
+        public virtual string Addr { get; set; }
+        public virtual int Port { get; set; }
+        public virtual int PoolingTime { get; set; }
+        public virtual bool Monitor { get; set; }
+        public virtual string OpcTagMonitor { get; set; }
         #endregion
         /// <summary>
         /// Diretoria de logs na locomotiva.
@@ -47,6 +45,34 @@ namespace LocomotivaServer.Models
         /// LogLevel na locomotiva.
         /// </summary>
         public virtual int LogLevel { get; set; }
-        public virtual string MonX { get; set; }
+        public virtual string OpcServerName { get; set; }
+        public virtual string OpcNodeName { get; set; }
+
+        #endregion
+
+        public LocomotivaModel() { }
+
+        public LocomotivaModel(string name, string deployTimeStamp, string deployVersion, 
+            string deviceKey, string hubUri, string hubProtocol, string type, string addr, 
+            int port, int poolingTime, bool monitor, string opcTagMonitor, string logDir, int logLevel,
+            string opcServerName, string opcNodeName)
+        {
+            Name = name;
+            DeployTimeStamp = deployTimeStamp;
+            DeployVersion = deployVersion;
+            DeviceKey = deviceKey;
+            HubUri = hubUri;
+            HubProtocol = hubProtocol;
+            Type = type;
+            Addr = addr;
+            Port = port;
+            PoolingTime = poolingTime;
+            Monitor = monitor;
+            OpcTagMonitor = opcTagMonitor;
+            LogDir = logDir;
+            LogLevel = logLevel;
+            OpcServerName = opcServerName;
+            OpcNodeName = opcNodeName;
+        }
     }
 }

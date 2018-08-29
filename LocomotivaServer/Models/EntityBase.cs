@@ -10,7 +10,7 @@ namespace LocomotivaServer.Models
     /// </summary>
     public class EntityBase
     {
-        public virtual long Id { get; protected set; }
+        public virtual long Id { get; set; }
 
         protected virtual object Actual => this;
 

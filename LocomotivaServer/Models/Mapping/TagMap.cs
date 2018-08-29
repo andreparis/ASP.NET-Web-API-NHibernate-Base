@@ -14,7 +14,6 @@ namespace LocomotivaServer.Models.Mapping
         {
             Table("TAG");
             Map(x => x.Name).Length(250);
-            Map(x => x.NamePIMS).Length(250).Column("Name_PIMS"); 
             Map(x => x.TimeStamp).Nullable().Length(250).Column("Time_Stamp"); 
         }
     }

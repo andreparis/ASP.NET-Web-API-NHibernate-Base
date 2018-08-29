@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using LocomotivaServer.Models;
+using NHibernate;
 using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
@@ -12,45 +13,47 @@ namespace LocomotivaServer.SessionManager
     /// Classe que implementa as funcionalidades de CRUD.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Repository<T> : IRepository<T>
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : EntityBase
     {
-        private ISession session;
+        private readonly ISession _session;
 
         public Repository()
         {
-            var sessionFactory = SessionFactoryHelper.CreateSessionFactory();
-            session = sessionFactory.OpenSession();
-            session.BeginTransaction();
+            _session = SessionManager.SessionFactory.GetCurrentSession();
         }
 
-        public void Save(T obj)
+        public TEntity Get(int id) => _session.Get<TEntity>((Int64)id);
+
+        public int Add(TEntity entity)
         {
-            session.Save(obj);
+            _session.Save(entity);
+            return (int)entity.Id;
         }
 
-        public void Update(T obj)
+        public void Delete(TEntity entity)
         {
-            session.Update(obj);
+            _session.Delete(entity);
         }
 
-        public void Delete(T obj)
+        public void Update(TEntity entity)
         {
-            session.Delete(obj);
+            _session.Update(entity);
+            _session.Flush();
         }
 
-        public T Load<T>(object id)
+        public IQueryable<TEntity> Items
         {
-            return session.Load<T>(id);
+            get { return _session.Query<TEntity>(); }
         }
 
         public T GetReference<T>(object id)
         {
-            return session.Get<T>(id);
+            return _session.Get<T>(id);
         }
 
         public IList<T> GetByHQL<T>(string hql)
         {
-            var obj = session.CreateQuery(hql).List<T>();
+            var obj = _session.CreateQuery(hql).List<T>();
             return obj;
         }
 
@@ -59,7 +62,7 @@ namespace LocomotivaServer.SessionManager
             StringBuilder hql = new StringBuilder();
             hql.Append(string.Format("FROM {0} a ", typeof(T).FullName));
             hql.Append(string.Format("WHERE a.{0} = ?", property));
-            var obj = session.CreateQuery(hql.ToString())
+            var obj = _session.CreateQuery(hql.ToString())
                 .SetParameter(0, value)
                 .List<T>();
 
@@ -68,7 +71,7 @@ namespace LocomotivaServer.SessionManager
 
         public IList<T> GetAll<T>(int pageIndex, int pageSize)
         {
-            ICriteria criteria = session.CreateCriteria(typeof(T));
+            ICriteria criteria = _session.CreateCriteria(typeof(T));
             criteria.SetFirstResult(pageIndex * pageSize);
             if (pageSize > 0)
             {
@@ -90,53 +93,63 @@ namespace LocomotivaServer.SessionManager
                 ICriterion cr1 = Expression.Sql(s);
                 objs.Add(cr1);
             }
-            ICriteria criteria = session.CreateCriteria(typeof(T));
+            ICriteria criteria = _session.CreateCriteria(typeof(T));
             foreach (ICriterion rest in objs)
-                session.CreateCriteria(typeof(T)).Add(rest);
+                _session.CreateCriteria(typeof(T)).Add(rest);
 
             criteria.SetFirstResult(0);
             return criteria.List<T>();
         }
 
-        public void Detach(T item)
-        {
-            session.Evict(item);
-        }
-
         internal void Flush()
         {
-            session.Flush();
+            _session.Flush();
         }
 
         public void Commit()
         {
-            if (session.Transaction.IsActive)
+            if (_session.Transaction.IsActive)
             {
-                session.Transaction.Commit();
+                _session.Transaction.Commit();
             }
         }
 
         public void Rollback()
         {
-            if (session.Transaction.IsActive)
+            if (_session.Transaction.IsActive)
             {
-                session.Transaction.Rollback();
-                session.Clear();
+                _session.Transaction.Rollback();
+                _session.Clear();
             }
         }
 
         public void BeginTransaction()
         {
             Rollback();
-            session.BeginTransaction();
+            _session.BeginTransaction();
         }
 
         public IList<T> GetAllOrdered<T>(string propertyName, bool ascending)
         {
             Order cr1 = new Order(propertyName, ascending);
-            IList<T> objsResult = session.CreateCriteria
+            IList<T> objsResult = _session.CreateCriteria
                 (typeof(T)).AddOrder(cr1).List<T>();
             return objsResult;
+        }
+
+        public void Save(TEntity obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Detach(TEntity item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T Load<T>(object id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

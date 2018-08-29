@@ -10,8 +10,16 @@ namespace LocomotivaServer.Models
     /// </summary>
     public class TagModel : EntityBase
     {
+        #region Atributos
         public virtual string Name { get; set; }
-        public virtual string NamePIMS { get; set; }      
-        public virtual DateTime TimeStamp { get; set; }
+        public virtual string TimeStamp { get; set; }
+        #endregion
+        public TagModel() { }
+
+        public TagModel(string name, string timeStamp)
+        {
+            Name = name;
+            TimeStamp = timeStamp;
+        }
     }
 }
